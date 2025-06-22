@@ -1,13 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // ✅ import navigate
+import { useNavigate } from "react-router-dom";
 import "../../App.css";
 
 export default function Login() {
-  const navigate = useNavigate(); // ✅ correct spelling
-
+  const navigate = useNavigate(); 
   const handleClick = (e) => {
-    e.preventDefault(); // ⛔ prevent page reload
-    navigate("/Signup"); // ✅ go to Signup page
+    e.preventDefault(); 
+    navigate("/Signup"); 
   };
 
   return (
