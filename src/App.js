@@ -4,6 +4,7 @@ import Home from './pages/Home.jsx';
 import Login from './pages/Auth/Login.jsx';
 import Signup from './pages/Auth/Signup.jsx';
 import ForgotPassword from './pages/Auth/ForgotPassword.jsx';
+import { firestore } from './firebase.js';
 import './App.css';
 
 function Logout() {
@@ -11,6 +12,14 @@ function Logout() {
 }
 
 function App() {
+  // Initialize Firebase app
+  React.useEffect(() => {
+    if (!firestore) {
+      console.error('Firebase app not initialized');
+    } else {
+      console.log('Firebase app initialized successfully');
+    }
+  }, []);
   return (
     <Router>
       <div className="App">
