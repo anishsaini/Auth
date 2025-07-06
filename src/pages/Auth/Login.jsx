@@ -1,51 +1,77 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "../../App.css";
+// src/Login.js
+import React, { useState } from 'react';
+import '../../App.css';
+import { Link } from 'react-router-dom';
 
-export default function Login() {
-  const navigate = useNavigate(); 
-  const handleClick = (e) => {
-    e.preventDefault(); 
-    navigate("/Signup"); 
+const Login = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { email, password } = formData;
+
+    if (!email || !password) {
+      setError('Email and password are required');
+      setSuccess('');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      setSuccess('');
+      return;
+    }
+
+    // Add Firebase Auth or your backend logic here
+    setSuccess('Login successful!');
+    setError('');
+    console.log('Login Data:', formData);
   };
 
   return (
-    <div className="auth-root">
-      <div className="auth-left">
-        <div className="auth-logo">
-          <div className="logo-circle"></div>
-          <span>Logo</span>
-        </div>
-        <h1>Create an Account <span role="img" aria-label="wave">👋</span></h1>
-        <p>Kindly fill in your details to create an account</p>
-        <form className="auth-form">
-          <label>Your fullname*</label>
-          <input type="text" placeholder="Enter your name" />
-          <label>Email address*</label>
-          <input type="email" placeholder="Enter email address" />
-          <label>Create password*</label>
-          <div className="password-input">
-            <input type="password" placeholder="Create a password" />
-          </div>
-          <div className="auth-checkbox">
-            <input type="checkbox" id="terms" />
-            <label htmlFor="terms">I agree to terms & conditions</label>
-          </div>
-          <button className="auth-btn" type="submit" onClick={handleClick}>
-            Register Account
-          </button>
-        </form>
-        <div className="auth-divider">
-          <span>or</span>
-        </div>
-        <button className="google-btn">
-          <img src="/google.png" alt="Google" style={{ width: '20px', marginRight: '8px' }} />
-          Register with Google
-        </button>
-      </div>
-      <div className="auth-right">
-        <img src="/main.jpg" alt="Illustration" />
-      </div>
+    <div className="login-container">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter Password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+
+        {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
+
+        <button type="submit">Login</button>
+      </form>
+       <p className="Forgot-password">
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </p>
     </div>
   );
-}
+};
+
+export default Login;

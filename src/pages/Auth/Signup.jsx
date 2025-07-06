@@ -1,45 +1,103 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase"; // 👈 import auth
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"; // 👈 import required functions
+
 import "../../App.css";
 
-export default function Signup() {
-  
+const Signup = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = formData;
+
+    if (!name || !email || !password) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Update the user's display name
+      await updateProfile(userCredential.user, {
+        displayName: name,
+      });
+
+      setSuccess("Signup successful!");
+      setError("");
+      console.log("User created:", userCredential.user);
+
+      // Optionally navigate to login or home page
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (err) {
+      setError(err.message);
+      setSuccess("");
+    }
+  };
+
   return (
-    <div className="auth-root">
-      <div className="auth-left">
-        <div className="auth-logo">
-          <div className="logo-circle"></div>
-          <span>Logo</span>
-        </div>
-        <h1>Welcome Back <span role="img" aria-label="wave">👋</span></h1>
-        <p className="auth-subtext">We are happy to see you again!</p>
-        <form className="auth-form">
-          
-          <label>Email address*</label>
-          <input type="email" placeholder="Enter email address" />
-          <label>Password*</label>
-          <div className="password-input" style={{position: 'relative'}}>
-            <input type="password" placeholder="Create a password" />
-            {<span style={{position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', color: '#888', cursor: 'pointer'}}>&#128065;</span>}
-          </div>
-          <div className="auth-checkbox">
-            <input type="checkbox" id="terms" />
-            <label htmlFor="terms">I agree to terms & conditions</label>
-          </div>
-          <button className="auth-btn" type="submit">Signup</button>
-        </form>
-        <div className="auth-divider">
-          <hr className="divider-line" />
-          <span>or</span>
-          <hr className="divider-line" />
-        </div>
-        <button className="google-btn" style={{background: '#111', color: '#fff'}}>
-          <img src="/google.png" alt="Google" style={{width: '20px', marginRight: '8px'}} />
-          Register with Google
-        </button>
-      </div>
-      <div className="auth-right">
-        <img src="/main.jpg" alt="Illustration" />
-      </div>
+    <div className="signup-container">
+      <h2>Signup</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Create Password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+
+        {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
+
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <p className="login-link">
+        Already have an account? <Link to="/login">Login here</Link>
+      </p>
     </div>
   );
-} 
+};
+
+export default Signup;
