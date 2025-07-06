@@ -1,16 +1,14 @@
-// src/Login.js
 import React, { useState } from 'react';
 import '../../App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate(); // 👈 for navigation
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -19,9 +17,8 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { email, password } = formData;
 
     if (!email || !password) {
@@ -36,10 +33,16 @@ const Login = () => {
       return;
     }
 
-    // Add Firebase Auth or your backend logic here
-    setSuccess('Login successful!');
-    setError('');
-    console.log('Login Data:', formData);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setSuccess('Login successful!');
+      setError('');
+      navigate('/home'); // 👈 Redirect to home page
+    } catch (err) {
+      console.error(err);
+      setError('Invalid email or password');
+      setSuccess('');
+    }
   };
 
   return (
@@ -53,7 +56,6 @@ const Login = () => {
           value={formData.email}
           onChange={handleChange}
         />
-
         <input
           type="password"
           name="password"
@@ -67,7 +69,7 @@ const Login = () => {
 
         <button type="submit">Login</button>
       </form>
-       <p className="Forgot-password">
+      <p className="Forgot-password">
         <Link to="/forgot-password">Forgot Password?</Link>
       </p>
     </div>

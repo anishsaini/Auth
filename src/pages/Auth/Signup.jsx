@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../firebase"; // 👈 import auth
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"; // 👈 import required functions
-
+import { auth } from "../../firebase"; 
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"; 
 import "../../App.css";
 
 const Signup = () => {
@@ -51,7 +50,6 @@ const Signup = () => {
       setError("");
       console.log("User created:", userCredential.user);
 
-      // Optionally navigate to login or home page
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       setError(err.message);
