@@ -7,12 +7,14 @@ import ForgotPassword from './pages/Auth/ForgotPassword.jsx';
 import { firestore } from './firebase.js';
 import './App.css';
 
+console.log('API KEY:', process.env.REACT_APP_API_KEY);
+
 function Logout() {
   return <h1>Logout</h1>;
 }
 
 function App() {
-  // Initialize Firebase app
+  
   React.useEffect(() => {
     if (!firestore) {
       console.error('Firebase app not initialized');
@@ -24,7 +26,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

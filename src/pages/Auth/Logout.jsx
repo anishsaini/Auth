@@ -1,10 +1,26 @@
-import React from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
 
-export default function Logout() {
+const LogoutButton = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      alert('Logged out from Firebase!');
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
-    <div>
-      <h1>Logout</h1>
-      {/* Logout form will go here */}
-    </div>
+    <button className="logout-button nav-btn" onClick={handleLogout}>
+      Logout
+    </button>
   );
-}
+};
+
+export default LogoutButton;

@@ -46,7 +46,7 @@
 
 /* This is Login Screen CSS */
 
-/* src/Login.css */
+
 .login-container {
   width: 300px;
   margin: 80px auto;
@@ -140,4 +140,165 @@ button:hover {
 .success {
   color: green;
   font-size: 14px;
+}
+
+/* This is logout CSS */
+
+
+.logout-button,
+.nav-btn {
+  padding: 8px 16px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.logout-button:hover {
+  background-color: #d62828;
+}
+
+
+/* home css */
+
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.home-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  background-color: #020202;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #d6bfbf;
+}
+
+/* Hero Section */
+.hero {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: white;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hero button:hover {
+  background-color: #f1f1f1;
+}
+
+/* About Section */
+.about {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.about h2 {
+  margin-bottom: 1rem;
+}
+
+/* Contact Section */
+.contact {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.contact form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact input,
+.contact textarea {
+  padding: 10px;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.contact button {
+  padding: 10px;
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.contact button:hover {
+  background-color: #1d5edc;
+}
+
+/* Footer */
+.footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }

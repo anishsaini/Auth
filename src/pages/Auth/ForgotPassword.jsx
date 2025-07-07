@@ -21,14 +21,14 @@ const ForgotPassword = () => {
 
     try {
       await sendPasswordResetEmail(auth, email);
-      setMessage("✅ Reset link sent to your email");
+      setMessage(" Reset link sent to your email");
       setError("");
     } catch (err) {
       console.error(err);
       if (err.code === "auth/user-not-found") {
-        setError("❌ Email not registered");
+        setError(" Email not registered");
       } else {
-        setError("❌ Something went wrong");
+        setError(" Something went wrong");
       }
       setMessage("");
     }

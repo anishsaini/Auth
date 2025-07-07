@@ -8,8 +8,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate(); // 👈 for navigation
-
+  const navigate = useNavigate(); 
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -37,7 +36,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       setSuccess('Login successful!');
       setError('');
-      navigate('/home'); // 👈 Redirect to home page
+      navigate('/home'); 
     } catch (err) {
       console.error(err);
       setError('Invalid email or password');
