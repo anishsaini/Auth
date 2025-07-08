@@ -8,7 +8,9 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate(); 
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -32,15 +34,18 @@ const Login = () => {
       return;
     }
 
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setSuccess('Login successful!');
       setError('');
-      navigate('/home'); 
+      navigate('/home');
     } catch (err) {
       console.error(err);
       setError('Invalid email or password');
       setSuccess('');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,8 +71,13 @@ const Login = () => {
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
+
+      {loading && <div className="loader"></div>}
+
       <p className="Forgot-password">
         <Link to="/forgot-password">Forgot Password?</Link>
       </p>

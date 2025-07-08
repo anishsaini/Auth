@@ -15,6 +15,7 @@ const Signup = () => {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -25,7 +26,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { name, email, password } = formData;
 
     if (!name || !email || !password) {
@@ -38,10 +38,10 @@ const Signup = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-   
       await updateProfile(userCredential.user, {
         displayName: name,
       });
@@ -54,6 +54,8 @@ const Signup = () => {
     } catch (err) {
       setError(err.message);
       setSuccess("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,11 +90,15 @@ const Signup = () => {
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing up..." : "Sign Up"}
+        </button>
+
+        {loading && <div className="loader"></div>}
       </form>
 
       <p className="login-link">
-        Already have an account? <Link to="/login">Login here</Link>
+        Already have an account? <Link to="/">Login here</Link>
       </p>
     </div>
   );
