@@ -7,6 +7,7 @@ import ForgotPassword from './pages/Auth/ForgotPassword.jsx';
 import { firestore } from './firebase.js';
 import './App.css';
 import Upload from './components/upload.jsx';
+import Card from './components/card.jsx';
 
 console.log('API KEY:', process.env.REACT_APP_API_KEY);
 
@@ -27,6 +28,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/card" element={<Card />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
