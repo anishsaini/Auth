@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-
-const Card = () => {
+const Card = ({ imageUrl }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
   const [saved, setSaved] = useState(false);
@@ -16,40 +15,25 @@ const Card = () => {
   };
 
   return (
-    <div className="card">
-      {/* Header */}
+    <div className="card-wrapper">
       <div className="card-header">
-        <img
-          src="/PlaygroundImage2.jpg"
-          alt="User Avatar"
-          className="avatar"
-        />
+        <img src="/PlaygroundImage2.jpg" alt="User" className="avatar" />
         <div className="user-info">
           <h4>User</h4>
           <span className="timestamp">2 hours ago</span>
         </div>
       </div>
 
-      {/* Content */}
       <div className="card-content">
-        <p>This is a sample post description. Enjoy the post! 🎉</p>
-        <img
-          src="/3127706-3840x2160-desktop-hd-royal-enfield-background-Photoroom.png"
-          alt="Post Media"
-          className="media"
-        />
+        <p>This is a sample post description. 🎉</p>
+        <img src={imageUrl} alt="Uploaded Media" className="media" />
       </div>
 
-      {/* Actions */}
       <div className="card-actions">
-        <button onClick={handleLike}>
-          {liked ? '💔' : '🤍'} {likes}
-        </button>
+        <button onClick={handleLike}>{liked ? '💔' : '🤍'} {likes}</button>
         <button>💬 1</button>
         <button>🔗 Share</button>
-        <button onClick={handleSave}>
-          {saved ? '💾 Saved' : '💾 Save'}
-        </button>
+        <button onClick={handleSave}>{saved ? '💾 Saved' : '💾 Save'}</button>
       </div>
     </div>
   );

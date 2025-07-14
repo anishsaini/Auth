@@ -1,56 +1,48 @@
 import React from 'react';
-import LogoutButton from './Auth/Logout'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import LogoutButton from './Auth/Logout';
+import Feed from '../components/feed/Feed';
+
 
 const Home = () => {
-
   const navigate = useNavigate();
 
-  const handlenavigate = () => {
+  const handleUploadClick = () => {
     navigate('/upload');
   };
 
   return (
-    <div className="home-wrapper">
-      <header className="header">
-        <div className="logo">MySite</div>
-        
+    <div className="home-layout">
+      {/* LEFT SIDEBAR */}
+      <aside className="sidebar">
+        <h2 className="logo">📷 Media</h2>
         <nav className="nav">
-          <a href="#hero">Home</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          
-          
-          <LogoutButton />
+          <Link to="#" className="nav-link">🏠 Home</Link>
+          <Link to="/explore" className="nav-link">🔍 Explore</Link>
+          <Link to="/profile" className="nav-link">👤 Profile</Link>
+          <Link to="/bookmarks" className="nav-link">📚 Bookmarks</Link>
         </nav>
-      </header>
+        <LogoutButton />
+        <button className="upload-post-button" onClick={handleUploadClick}>
+          Upload Post
+        </button>
+      </aside>
 
-      <section id="hero" className="hero">
-        <h1>Welcome to My Website</h1>
-        <p>Your gateway to something amazing 🚀</p>
-        <button onClick={handlenavigate} >Get Started</button>
-        
-      </section>
+      {/* CENTER FEED */}
+      <main className="feed-wrapper">
+        <h2 className="feed-title">Latest Posts</h2>
+        <Feed />
+      </main>
 
-      <section id="about" className="about">
-        <h2>About Us</h2>
-        <p>We are passionate developers building modern web experiences.</p>
-      </section>
-
-      <section id="contact" className="contact">
-        <h2>Contact Us</h2>
-        <form>
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <textarea placeholder="Your Message" rows="4" required></textarea>
-          <button type="submit">Send</button>
-          
-        </form>
-      </section>
-
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} MySite. All rights reserved.</p>
-      </footer>
+      {/* RIGHT PANEL */}
+      <aside className="right-panel">
+        <div className="right-box">
+          <h4>📤 Ready to share?</h4>
+          <button className="upload-button" onClick={handleUploadClick}>
+            Upload a File
+          </button>
+        </div>
+      </aside>
     </div>
   );
 };

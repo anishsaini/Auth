@@ -13,28 +13,29 @@ if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
 }
 
-// CORS setup for React frontend
+// Enable CORS for frontend
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
 
-// Serve uploaded files statically
+// Serve static files from uploads folder
 app.use('/uploads', express.static(uploadPath));
 
-// Multer Storage Setup
+// Multer storage setup
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, uploadPath);
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname);
   },
 });
+
 const upload = multer({ storage });
 
-// Upload Endpoint
+// POST /upload → Upload file
 app.post('/upload', upload.single('file'), (req, res) => {
   console.log('✅ Upload endpoint hit');
   if (!req.file) {
@@ -46,6 +47,18 @@ app.post('/upload', upload.single('file'), (req, res) => {
   res.status(200).json({ fileUrl });
 });
 
+// GET /list-uploads → Return list of uploaded files
+app.get('/list-uploads', (req, res) => {
+  fs.readdir(uploadPath, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Unable to list files' });
+    }
+    const fileUrls = files.map(filename => `http://localhost:${PORT}/uploads/${filename}`);
+    res.json(fileUrls);
+  });
+});
+
+// Start server
 app.listen(PORT, () => {
   console.log(`✅ Server is running at http://localhost:${PORT}`);
 });
