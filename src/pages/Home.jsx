@@ -20,7 +20,7 @@ const Home = () => {
           <Link to="#" className="nav-link">🏠 Home</Link>
           <Link to="/explore" className="nav-link">🔍 Explore</Link>
           <Link to="/profile" className="nav-link">👤 Profile</Link>
-          <Link to="/bookmarks" className="nav-link">📚 Bookmarks</Link>
+          <Link to="/bookmark" className="nav-link">📚 Bookmarks</Link>
         </nav>
         <LogoutButton />
         <button className="upload-post-button" onClick={handleUploadClick}>

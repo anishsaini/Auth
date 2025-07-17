@@ -9,6 +9,9 @@ import './App.css';
 import Upload from './components/upload.jsx';
 import Card from './components/card.jsx';
 import Feed from './components/feed/Feed.jsx';
+import Profile from './components/feed/profile.jsx';
+import Explore from './components/feed/explore.jsx';
+import Bookmark from './components/feed/bookmark.jsx';
 
 console.log('API KEY:', process.env.REACT_APP_API_KEY);
 
@@ -29,6 +32,9 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+          <Route path="/explore" element={<Explore/>} />
+          <Route path="/bookmark" element={<Bookmark/>} />
+          <Route path="/profile" element={<Profile/>} />
           <Route path="/feed" element={<Feed/>} />
           <Route path="/card" element={<Card />} />
           <Route path="/upload" element={<Upload />} />

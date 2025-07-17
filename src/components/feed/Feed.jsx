@@ -13,8 +13,8 @@ const Feed = () => {
 
   return (
     <div className="feed-section">
-      {posts.map((url, i) => (
-        <Card key={i} imageUrl={url} />
+      {posts.map((post, i) => (
+        <Card key={i} post={post} />
       ))}
     </div>
   );

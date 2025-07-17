@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Card = ({ imageUrl }) => {
+const Card = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
   const [saved, setSaved] = useState(false);
@@ -20,13 +20,13 @@ const Card = ({ imageUrl }) => {
         <img src="/PlaygroundImage2.jpg" alt="User" className="avatar" />
         <div className="user-info">
           <h4>User</h4>
-          <span className="timestamp">2 hours ago</span>
+          <span className="timestamp">{post.uploadedAt}</span>
         </div>
       </div>
 
       <div className="card-content">
-        <p>This is a sample post description. 🎉</p>
-        <img src={imageUrl} alt="Uploaded Media" className="media" />
+        <p>{post.title} 🎉</p>
+        <img src={post.fileUrl} alt="Uploaded Media" className="media" />
       </div>
 
       <div className="card-actions">
